@@ -5,3 +5,8 @@ dist
 
 # Internal planning notes
 WIP.md
+
+# Generated QR code assets
+public/qr-code.png
+public/qr-code-card.png
+scripts/

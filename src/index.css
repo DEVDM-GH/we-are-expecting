@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Twinkle uses CSS custom property for varied durations */
+.star {
+  animation: twinkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+}

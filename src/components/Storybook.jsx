@@ -4,7 +4,7 @@ const PAGES = [
   { text: 'Once upon a time, in a city called Bangalore…', emoji: '🌆', page: 1 },
   {
     text: '…two people found each other, and built a beautiful life together.',
-    emoji: '💑',
+    emoji: '👫',
     page: 2,
   },
   { text: 'They laughed, they travelled, they dreamed…', emoji: '✨', page: 3 },

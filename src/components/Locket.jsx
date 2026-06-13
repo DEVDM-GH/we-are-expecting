@@ -8,7 +8,6 @@ const daysAway = Math.ceil((BABY_DATE - new Date()) / (1000 * 60 * 60 * 24))
 // Locket dimensions
 const W = 320
 const H = 380
-const HALF_H = H / 2 // 190 — half height for the lid
 
 function fireConfetti() {
   const colors = ['#C9A84C', '#F4B8C1', '#8FAF8A', '#FFF8EC', '#ffffff', '#E8C96A']
@@ -300,68 +299,62 @@ export default function Locket() {
               </div>
             </FadeStep>
 
-            {/* Closed-state heart (only visible when shut) */}
-            {contentStep === 0 && (
-              <div style={{ opacity: 0.35 }}>
-                <svg width="70" height="65" viewBox="0 0 70 65">
-                  <path
-                    d="M35 58 C35 58, 5 38, 5 20 C5 10, 13 3, 22 3 C28 3, 33 6, 35 10 C37 6, 42 3, 48 3 C57 3, 65 10, 65 20 C65 38, 35 58, 35 58Z"
-                    fill="#C9A84C"
-                  />
-                </svg>
-              </div>
-            )}
           </div>
 
-          {/* Lid — top half that rotates open */}
+          {/* Lid — full gold cover that hinges up & away to reveal the content */}
           <div
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
               width: W,
-              height: HALF_H,
-              background: 'linear-gradient(145deg, #F2DC7A 0%, #E8C96A 35%, #C9A84C 70%, #A07830 100%)',
-              borderRadius: `${W / 2}px ${W / 2}px 0 0 / ${HALF_H}px ${HALF_H}px 0 0`,
-              transformOrigin: 'center bottom',
-              transform: isOpen ? `rotateX(130deg)` : 'rotateX(0deg)',
-              transition: 'transform 0.8s ease-in-out',
-              zIndex: 10,
-              boxShadow: 'inset 0 3px 8px rgba(255,255,255,0.3), 0 -3px 10px rgba(201,168,76,0.3)',
+              height: H,
+              borderRadius: '50%',
+              background:
+                'radial-gradient(ellipse at 42% 30%, #F4DE7E 0%, #E8C96A 32%, #C9A84C 64%, #A07830 100%)',
+              border: '6px solid #C9A84C',
+              transformOrigin: 'center top',
+              transform: isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)',
+              transition: 'transform 0.85s ease-in-out',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              zIndex: 6,
+              boxShadow:
+                'inset 0 4px 12px rgba(255,255,255,0.4), inset 0 -14px 30px rgba(120,80,20,0.3), 0 10px 30px rgba(100,60,10,0.3)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              overflow: 'hidden',
             }}
           >
-            {/* Inner engraving ring */}
+            {/* Engraving ring */}
             <div
               style={{
                 position: 'absolute',
-                inset: 10,
-                borderRadius: `${W / 2 - 10}px ${W / 2 - 10}px 0 0 / ${HALF_H - 10}px ${HALF_H - 10}px 0 0`,
-                border: '1px solid rgba(255,255,255,0.3)',
+                inset: 14,
+                borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.35)',
+                pointerEvents: 'none',
               }}
             />
-            {/* Heart on lid */}
-            <svg width="68" height="62" viewBox="0 0 68 62" style={{ opacity: 0.5, marginTop: 20 }}>
+            {/* Heart engraving */}
+            <svg width="128" height="118" viewBox="0 0 128 118" style={{ opacity: 0.45 }}>
               <path
-                d="M34 56 C34 56, 4 36, 4 18 C4 8, 12 2, 21 2 C27 2, 31 5, 34 9 C37 5, 41 2, 47 2 C56 2, 64 8, 64 18 C64 36, 34 56, 34 56Z"
+                d="M64 104 C64 104, 14 68, 14 36 C14 19, 27 6, 43 6 C53 6, 60 12, 64 19 C68 12, 75 6, 85 6 C101 6, 114 19, 114 36 C114 68, 64 104, 64 104Z"
                 fill="#FFF8EC"
               />
             </svg>
-            {/* Clasp at bottom of lid */}
+            {/* Clasp at bottom */}
             <div
               style={{
                 position: 'absolute',
-                bottom: 0,
+                bottom: 6,
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: 22,
-                height: 9,
+                width: 24,
+                height: 10,
                 background: '#A07830',
-                borderRadius: '4px 4px 0 0',
-                boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2)',
+                borderRadius: '0 0 5px 5px',
+                boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.25)',
               }}
             />
           </div>

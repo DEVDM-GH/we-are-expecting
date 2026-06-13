@@ -9,13 +9,17 @@ import Locket from './components/Locket'
 import Stars from './components/Stars'
 
 // auth state: 'loading' | 'unauthenticated' | 'denied' | 'authorized'
-// ?preview=1 skips auth in development so animations can be tested locally
-const DEV_PREVIEW = import.meta.env.DEV && new URLSearchParams(window.location.search).get('preview') === '1'
+// Dev-only URL param helpers (ignored entirely in production builds):
+//   ?preview=1  — skip Firebase auth gate
+//   ?stage=locket — start directly at the locket stage (skips storybook)
+const _devParams = import.meta.env.DEV ? new URLSearchParams(window.location.search) : null
+const DEV_PREVIEW = !!_devParams?.get('preview')
+const DEV_STAGE = _devParams?.get('stage') ?? 'storybook'
 
 export default function App() {
   const [authState, setAuthState] = useState(DEV_PREVIEW ? 'authorized' : 'loading')
   const [deniedEmail, setDeniedEmail] = useState('')
-  const [stage, setStage] = useState('storybook')
+  const [stage, setStage] = useState(DEV_STAGE)
 
   useEffect(() => {
     if (DEV_PREVIEW) return // skip Firebase auth listener in local preview mode

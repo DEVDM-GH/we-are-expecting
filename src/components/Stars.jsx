@@ -3,13 +3,21 @@ import { useMemo } from 'react'
 export default function Stars() {
   const stars = useMemo(
     () =>
-      Array.from({ length: 55 }, (_, i) => ({
+      Array.from({ length: 70 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        size: Math.random() * 2.5 + 1,
-        dur: (Math.random() * 3 + 2).toFixed(1),
-        delay: (Math.random() * 4).toFixed(1),
+        size: Math.random() * 5 + 2,
+        dur: (Math.random() * 4 + 2).toFixed(1),
+        delay: (Math.random() * 5).toFixed(1),
+        color:
+          i % 4 === 0
+            ? '#F4B8C1'
+            : i % 4 === 1
+              ? '#8FAF8A'
+              : i % 4 === 2
+                ? '#C9A84C'
+                : '#fff8e7',
       })),
     [],
   )
@@ -25,9 +33,10 @@ export default function Stars() {
             top: `${s.y}%`,
             width: s.size,
             height: s.size,
-            background: s.id % 3 === 0 ? '#F4B8C1' : s.id % 5 === 0 ? '#8FAF8A' : '#C9A84C',
+            background: s.color,
             '--dur': `${s.dur}s`,
             '--delay': `${s.delay}s`,
+            boxShadow: `0 0 ${s.size + 2}px 1px ${s.color}`,
           }}
         />
       ))}

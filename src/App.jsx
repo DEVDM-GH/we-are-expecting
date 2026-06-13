@@ -8,11 +8,14 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen relative overflow-hidden flex items-center justify-center py-10"
-      style={{ background: 'linear-gradient(160deg, #FDF6E3 0%, #FAF0D7 55%, #F5E8C0 100%)' }}
+      className="min-h-screen relative overflow-hidden flex items-center justify-center"
+      style={{
+        background:
+          'radial-gradient(ellipse at 50% 40%, #FDF0D5 0%, #F5E4B8 40%, #EDD898 100%)',
+      }}
     >
       <Stars />
-      <div className="relative z-10 w-full max-w-xl mx-auto px-4">
+      <div className="relative z-10 w-full flex items-center justify-center py-12 px-4">
         {stage === 'storybook' ? (
           <Storybook onComplete={() => setStage('locket')} />
         ) : (

@@ -5,26 +5,11 @@ const BABY_DATE = new Date('2027-02-01')
 const daysAway = Math.ceil((BABY_DATE - new Date()) / (1000 * 60 * 60 * 24))
 
 function fireConfetti() {
-  const colors = ['#C9A84C', '#F4B8C1', '#8FAF8A', '#F5ECD7', '#ffffff', '#E8C96A']
-  const end = Date.now() + 3200
-
+  const colors = ['#C9A84C', '#F4B8C1', '#8FAF8A', '#FFF8EC', '#ffffff', '#E8C96A']
+  const end = Date.now() + 3500
   const burst = () => {
-    confetti({
-      particleCount: 4,
-      angle: 60,
-      spread: 58,
-      origin: { x: 0 },
-      colors,
-      scalar: 1.1,
-    })
-    confetti({
-      particleCount: 4,
-      angle: 120,
-      spread: 58,
-      origin: { x: 1 },
-      colors,
-      scalar: 1.1,
-    })
+    confetti({ particleCount: 5, angle: 60, spread: 60, origin: { x: 0 }, colors, scalar: 1.2 })
+    confetti({ particleCount: 5, angle: 120, spread: 60, origin: { x: 1 }, colors, scalar: 1.2 })
     if (Date.now() < end) requestAnimationFrame(burst)
   }
   burst()
@@ -32,12 +17,12 @@ function fireConfetti() {
 
 export default function Locket() {
   const [isOpen, setIsOpen] = useState(false)
-  const [showInner, setShowInner] = useState(false)
+  const [showContent, setShowContent] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 80)
+    const t = setTimeout(() => setMounted(true), 100)
     return () => clearTimeout(t)
   }, [])
 
@@ -45,187 +30,268 @@ export default function Locket() {
     if (isOpen) return
     setIsOpen(true)
     fireConfetti()
-    setTimeout(() => setShowInner(true), 650)
-    setTimeout(() => setShowMessage(true), 1400)
+    setTimeout(() => setShowContent(true), 700)
+    setTimeout(() => setShowMessage(true), 1600)
   }
 
   return (
     <div
-      className={`flex flex-col items-center px-4 transition-all duration-700 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        opacity: mounted ? 1 : 0,
+        transform: mounted ? 'translateY(0)' : 'translateY(28px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
+      }}
     >
       {/* Pre-open tagline */}
       {!isOpen && (
-        <p className="font-playfair text-amber-700 text-lg sm:text-xl italic text-center mb-8 animate-fade-in">
+        <p
+          className="font-playfair animate-fade-in"
+          style={{
+            color: '#7B4F1A',
+            fontSize: 'clamp(16px, 4vw, 20px)',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            marginBottom: 36,
+            maxWidth: 300,
+          }}
+        >
           Something precious is waiting inside… 💛
         </p>
       )}
 
-      {/* Chain + Locket */}
-      <div className="flex flex-col items-center">
-        {/* Chain SVG */}
-        <svg
-          width="80"
-          height="44"
-          viewBox="0 0 80 44"
-          fill="none"
-          className="mb-0 drop-shadow-sm"
-        >
+      {/* ── Locket ── */}
+      <div
+        onClick={handleOpen}
+        role="button"
+        aria-label="Open the locket"
+        style={{
+          cursor: isOpen ? 'default' : 'pointer',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          userSelect: 'none',
+        }}
+      >
+        {/* Chain */}
+        <svg width="100" height="52" viewBox="0 0 100 52" fill="none" style={{ display: 'block' }}>
+          <defs>
+            <linearGradient id="chainGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#E8C96A" />
+              <stop offset="50%" stopColor="#C9A84C" />
+              <stop offset="100%" stopColor="#A8832A" />
+            </linearGradient>
+          </defs>
+          {/* Left side */}
           <path
-            d="M40 0 C38 8, 28 12, 22 22 C16 32, 10 38, 8 44"
-            stroke="#C9A84C"
+            d="M50 2 C46 12, 36 18, 28 28 C20 38, 12 44, 8 52"
+            stroke="url(#chainGrad)"
             strokeWidth="2.5"
             strokeLinecap="round"
+            fill="none"
           />
+          {/* Right side */}
           <path
-            d="M40 0 C42 8, 52 12, 58 22 C64 32, 70 38, 72 44"
-            stroke="#C9A84C"
+            d="M50 2 C54 12, 64 18, 72 28 C80 38, 88 44, 92 52"
+            stroke="url(#chainGrad)"
             strokeWidth="2.5"
             strokeLinecap="round"
+            fill="none"
           />
-          {/* Chain links */}
-          {[8, 18, 28].map((y) => (
+          {/* Left chain links */}
+          {[[44, 10], [36, 20], [26, 32], [15, 44]].map(([cx, cy], i) => (
             <ellipse
-              key={y}
-              cx={40 - y * 0.38}
-              cy={y + 2}
-              rx="4"
+              key={`l${i}`}
+              cx={cx}
+              cy={cy}
+              rx="4.5"
               ry="2.5"
               stroke="#C9A84C"
               strokeWidth="1.5"
               fill="none"
-              transform={`rotate(-25 ${40 - y * 0.38} ${y + 2})`}
+              transform={`rotate(-35 ${cx} ${cy})`}
             />
           ))}
-          {[8, 18, 28].map((y) => (
+          {/* Right chain links */}
+          {[[56, 10], [64, 20], [74, 32], [85, 44]].map(([cx, cy], i) => (
             <ellipse
-              key={`r${y}`}
-              cx={40 + y * 0.38}
-              cy={y + 2}
-              rx="4"
+              key={`r${i}`}
+              cx={cx}
+              cy={cy}
+              rx="4.5"
               ry="2.5"
               stroke="#C9A84C"
               strokeWidth="1.5"
               fill="none"
-              transform={`rotate(25 ${40 + y * 0.38} ${y + 2})`}
+              transform={`rotate(35 ${cx} ${cy})`}
             />
           ))}
         </svg>
 
         {/* Locket body */}
         <div
-          onClick={handleOpen}
-          className={`relative select-none ${isOpen ? '' : 'cursor-pointer animate-pulse-glow'}`}
-          style={{ width: 190, height: 230 }}
-          role="button"
-          aria-label="Open the locket"
+          style={{
+            position: 'relative',
+            width: 200,
+            height: 240,
+            animation: isOpen ? 'none' : 'pulseGlow 2s ease-in-out infinite',
+          }}
         >
-          {/* Outer glow ring */}
-          <div
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              inset: -6,
-              borderRadius: '50%',
-              background:
-                'radial-gradient(ellipse at center, rgba(201,168,76,0.18) 0%, transparent 70%)',
-            }}
-          />
+          <style>{`
+            @keyframes pulseGlow {
+              0%, 100% { filter: drop-shadow(0 0 12px rgba(201,168,76,0.4)); }
+              50% { filter: drop-shadow(0 0 28px rgba(201,168,76,0.75)); }
+            }
+            @keyframes shimmer {
+              0%, 100% { opacity: 0.6; }
+              50% { opacity: 1; }
+            }
+          `}</style>
 
-          {/* Bottom half — always visible */}
-          <div
-            className="absolute bottom-0 left-0 right-0 rounded-b-full"
-            style={{
-              height: '50%',
-              background: 'linear-gradient(160deg, #C9A84C 0%, #A07828 60%, #8B6410 100%)',
-              boxShadow: '0 8px 24px rgba(139,100,16,0.45)',
-            }}
-          />
+          {/* SVG Locket */}
+          <svg
+            viewBox="0 0 200 240"
+            width="200"
+            height="240"
+            style={{ position: 'absolute', top: 0, left: 0 }}
+          >
+            <defs>
+              <linearGradient id="locketBot" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#C9A84C" />
+                <stop offset="45%" stopColor="#A8832A" />
+                <stop offset="100%" stopColor="#7A5510" />
+              </linearGradient>
+              <linearGradient id="locketTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#F0D878" />
+                <stop offset="40%" stopColor="#E8C96A" />
+                <stop offset="100%" stopColor="#C9A84C" />
+              </linearGradient>
+              <linearGradient id="locketEdge" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#F0D878" />
+                <stop offset="100%" stopColor="#8B6414" />
+              </linearGradient>
+              <radialGradient id="innerGlow" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor="#FFF8EC" />
+                <stop offset="100%" stopColor="#F5ECD7" />
+              </radialGradient>
+              <clipPath id="locketShape">
+                <ellipse cx="100" cy="130" rx="82" ry="100" />
+              </clipPath>
+              <clipPath id="topHalfClip">
+                <rect x="0" y="0" width="200" height="130" />
+              </clipPath>
+            </defs>
 
-          {/* Inner content — revealed when open */}
-          {showInner && (
-            <div
-              className="absolute inset-2 rounded-full flex flex-col items-center justify-center text-center px-4 animate-fade-in"
+            {/* Locket ring at top */}
+            <ellipse cx="100" cy="18" rx="10" ry="14" fill="none" stroke="url(#locketEdge)" strokeWidth="5" />
+            <ellipse cx="100" cy="18" rx="6" ry="10" fill="none" stroke="url(#locketEdge)" strokeWidth="2" />
+
+            {/* Locket body bottom half */}
+            <ellipse cx="100" cy="130" rx="82" ry="100" fill="url(#locketBot)" />
+            {/* Subtle edge highlight */}
+            <ellipse cx="100" cy="130" rx="82" ry="100" fill="none" stroke="url(#locketEdge)" strokeWidth="3" />
+
+            {/* Inner content (shown when open) */}
+            {showContent && (
+              <g>
+                <ellipse cx="100" cy="130" rx="70" ry="88" fill="url(#innerGlow)" />
+                <ellipse cx="100" cy="130" rx="70" ry="88" fill="none" stroke="#C9A84C" strokeWidth="1.5" opacity="0.5" />
+              </g>
+            )}
+
+            {/* Heart (visible on closed locket front) */}
+            {!showContent && (
+              <g opacity="0.45" transform="translate(100,125) scale(0.9)">
+                <path
+                  d="M0 14 C0 14, -24 2, -24 -12 C-24 -22, -16 -28, -8 -28 C-3 -28, 0 -24, 0 -20 C0 -24, 3 -28, 8 -28 C16 -28, 24 -22, 24 -12 C24 2, 0 14, 0 14Z"
+                  fill="#FFF8EC"
+                />
+              </g>
+            )}
+
+            {/* Locket top half — hinges open */}
+            <g
               style={{
-                background: 'radial-gradient(ellipse at 40% 35%, #FFF8EC 0%, #F5ECD7 100%)',
-                boxShadow: 'inset 0 2px 10px rgba(201,168,76,0.25)',
-                zIndex: 5,
+                transformOrigin: '100px 130px',
+                transform: isOpen ? 'rotateX(170deg)' : 'rotateX(0deg)',
+                transition: 'transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
             >
-              <div style={{ fontSize: 28, marginBottom: 5 }}>🍼</div>
+              <ellipse cx="100" cy="130" rx="82" ry="100" fill="url(#locketTop)" clipPath="url(#topHalfClip)" />
+              {/* Engrave detail lines */}
+              <ellipse cx="100" cy="130" rx="68" ry="86" fill="none" stroke="#E8C96A" strokeWidth="1" opacity="0.4" clipPath="url(#topHalfClip)" />
+              <ellipse cx="100" cy="130" rx="82" ry="100" fill="none" stroke="url(#locketEdge)" strokeWidth="3" clipPath="url(#topHalfClip)" />
+              {/* Heart on top */}
+              <g opacity="0.5" transform="translate(100,108) scale(0.85)" clipPath="url(#topHalfClip)">
+                <path
+                  d="M0 14 C0 14, -24 2, -24 -12 C-24 -22, -16 -28, -8 -28 C-3 -28, 0 -24, 0 -20 C0 -24, 3 -28, 8 -28 C16 -28, 24 -22, 24 -12 C24 2, 0 14, 0 14Z"
+                  fill="#FFF8EC"
+                />
+              </g>
+            </g>
+
+            {/* Clasp */}
+            <rect x="92" y="126" width="16" height="8" rx="4" fill="#A8832A" stroke="#C9A84C" strokeWidth="1" />
+          </svg>
+
+          {/* Text overlay inside open locket */}
+          {showContent && (
+            <div
+              className="animate-fade-in"
+              style={{
+                position: 'absolute',
+                top: '52%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                textAlign: 'center',
+                width: 138,
+                pointerEvents: 'none',
+              }}
+            >
+              <div style={{ fontSize: 28, marginBottom: 4 }}>🍼</div>
               <p
                 className="font-playfair"
-                style={{
-                  color: '#7B4F1A',
-                  fontSize: 14,
-                  fontWeight: 700,
-                  lineHeight: 1.45,
-                  marginBottom: 6,
-                }}
+                style={{ color: '#5C3410', fontSize: 14, fontWeight: 700, lineHeight: 1.45, marginBottom: 5 }}
               >
                 Dev &amp; Priti<br />are expecting!
               </p>
               <p
                 className="font-lato"
-                style={{ color: '#A8832A', fontSize: 11, lineHeight: 1.4, marginBottom: 8 }}
+                style={{ color: '#A8832A', fontSize: 10.5, lineHeight: 1.4, marginBottom: 8 }}
               >
                 Baby arrives<br />February 2027
               </p>
               <div
-                className="rounded-full px-3 py-1"
-                style={{ background: 'linear-gradient(135deg, #C9A84C, #A8832A)' }}
+                style={{
+                  display: 'inline-block',
+                  borderRadius: 20,
+                  padding: '3px 10px',
+                  background: 'linear-gradient(135deg, #C9A84C, #A8832A)',
+                }}
               >
                 <span className="font-lato font-bold" style={{ color: '#FFF8EC', fontSize: 10 }}>
-                  {daysAway} days away! 🎉
+                  {daysAway} days! 🎉
                 </span>
               </div>
             </div>
           )}
 
-          {/* Top half — hinges open */}
-          <div
-            className="absolute top-0 left-0 right-0 rounded-t-full"
-            style={{
-              height: '50%',
-              background: 'linear-gradient(145deg, #E8C96A 0%, #C9A84C 55%, #A8832A 100%)',
-              transformOrigin: 'bottom center',
-              transform: isOpen ? 'rotateX(-165deg)' : 'rotateX(0deg)',
-              transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-              zIndex: 10,
-              boxShadow: '0 -3px 12px rgba(201,168,76,0.35)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              perspective: 600,
-            }}
-          >
-            {/* Heart on locket front */}
-            <svg width="52" height="52" viewBox="0 0 52 52" style={{ opacity: 0.55 }}>
-              <path
-                d="M26 42 C26 42, 5 28, 5 16 C5 9.5, 10 4, 17 4 C21.5 4, 24.5 6.5, 26 9 C27.5 6.5, 30.5 4, 35 4 C42 4, 47 9.5, 47 16 C47 28, 26 42, 26 42Z"
-                fill="#FFF8EC"
-              />
-            </svg>
-          </div>
-
-          {/* Locket clasp */}
-          <div
-            className="absolute left-1/2 -translate-x-1/2"
-            style={{
-              top: '50%',
-              width: 12,
-              height: 10,
-              background: '#A8832A',
-              borderRadius: 3,
-              zIndex: 11,
-              boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
-            }}
-          />
-
           {/* Tap hint */}
           {!isOpen && (
             <div
-              className="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap font-lato text-amber-500 text-xs animate-pulse"
+              className="font-lato animate-pulse"
+              style={{
+                position: 'absolute',
+                bottom: -32,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                whiteSpace: 'nowrap',
+                color: '#A8832A',
+                fontSize: 12,
+                letterSpacing: '0.08em',
+              }}
             >
               tap to open ✨
             </div>
@@ -233,14 +299,30 @@ export default function Locket() {
         </div>
       </div>
 
-      {/* Love message — fades in after reveal */}
+      {/* Love message */}
       {showMessage && (
-        <div className="mt-16 text-center max-w-xs animate-fade-in-up">
-          <p className="font-playfair text-amber-800 text-lg sm:text-xl italic leading-relaxed">
+        <div
+          className="animate-fade-in-up"
+          style={{ marginTop: 64, textAlign: 'center', maxWidth: 320 }}
+        >
+          <div style={{ color: '#C9A84C', fontSize: 22, marginBottom: 10 }}>❤️</div>
+          <p
+            className="font-playfair"
+            style={{
+              color: '#5C3410',
+              fontSize: 'clamp(16px, 4vw, 20px)',
+              fontStyle: 'italic',
+              lineHeight: 1.65,
+              marginBottom: 10,
+            }}
+          >
             "We can't wait for you to meet them."
           </p>
-          <p className="font-lato text-amber-600 mt-3 text-sm tracking-wide">
-            With all our love ❤️ — Dev &amp; Priti
+          <p
+            className="font-lato"
+            style={{ color: '#A8832A', fontSize: 13, letterSpacing: '0.06em' }}
+          >
+            With all our love — Dev &amp; Priti
           </p>
         </div>
       )}

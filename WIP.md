@@ -10,12 +10,12 @@
 
 | # | Task | Status |
 |---|------|--------|
-| 1 | Gather project specification from user | ⏳ Pending |
-| 2 | Decide tech stack (HTML/CSS/JS or Next.js) | ⏳ Pending |
-| 3 | Build website files in workspace | ⏳ Pending |
-| 4 | Review and refine design/content | ⏳ Pending |
-| 5 | Create GitHub repository | ⏳ Pending |
-| 6 | Initialize git and push code to GitHub | ⏳ Pending |
+| 1 | Gather project specification from user | ✅ Done |
+| 2 | Decide tech stack (Vite + React + Tailwind CSS) | ✅ Done |
+| 3 | Build website files in workspace | ✅ Done |
+| 4 | Review and refine design/content | ✅ Done |
+| 5 | Create GitHub repository (`we-are-expecting`) | ✅ Done |
+| 6 | Initialize git and push code to GitHub | ✅ Done |
 | 7 | Link GitHub repo to Vercel and deploy | ⏳ Pending |
 | 8 | Verify live URL works correctly | ⏳ Pending |
 
@@ -34,9 +34,10 @@
 
 ## Notes
 
-- Vercel Hobby plan is free and supports multiple projects
-- GitHub repo must be created before deployment
-- Project spec not yet received — **blocked on Step 1**
+- Repo: https://github.com/DEVDM-GH/we-are-expecting
+- Build verified: `npm run build` passes clean (163 KB JS, 13 KB CSS)
+- Stack: Vite 5 + React 18 + Tailwind CSS 3 + canvas-confetti
+- **Next action:** Import repo on Vercel → https://vercel.com/new
 
 ---
 

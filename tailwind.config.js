@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         playfair: ['"Playfair Display"', 'Georgia', 'serif'],
         lato: ['Lato', 'system-ui', 'sans-serif'],
+        caveat: ['Caveat', 'cursive'],
       },
       colors: {
         parchment: '#F5ECD7',
@@ -43,6 +44,14 @@ export default {
           '0%': { transform: 'perspective(900px) rotateY(90deg)', opacity: '0' },
           '100%': { transform: 'perspective(900px) rotateY(0deg)', opacity: '1' },
         },
+        shimmer: {
+          '0%': { transform: 'translateX(-120%)' },
+          '100%': { transform: 'translateX(120%)' },
+        },
+        bob: {
+          '0%, 100%': { transform: 'rotate(-2deg) translateY(0px)' },
+          '50%': { transform: 'rotate(-2deg) translateY(-9px)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in 0.9s ease forwards',
@@ -52,6 +61,8 @@ export default {
         float: 'float 4s ease-in-out infinite',
         'page-out': 'page-out 0.38s ease-in forwards',
         'page-in': 'page-in 0.38s ease-out forwards',
+        shimmer: 'shimmer 2.4s ease-in-out infinite',
+        bob: 'bob 3.5s ease-in-out infinite',
       },
     },
   },

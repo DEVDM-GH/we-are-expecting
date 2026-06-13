@@ -123,16 +123,26 @@ export default function Storybook({ onComplete }) {
             <div
               style={{
                 width: '100%',
-                padding: '10px 0 6px',
+                padding: '11px 0 8px',
                 textAlign: 'center',
-                borderBottom: '1px solid rgba(201,168,76,0.3)',
+                borderBottom: '1px solid #C9A84C',
               }}
             >
               <span
                 className="font-playfair"
-                style={{ color: '#C9A84C', fontSize: 11, letterSpacing: '0.18em', opacity: 0.7 }}
+                style={{ fontSize: 13, letterSpacing: '0.18em', fontWeight: 600 }}
               >
-                ✦ &nbsp; Dev &amp; Priti &nbsp; ✦
+                <span style={{ color: '#C9A84C' }}>✦</span>
+                <span
+                  style={{
+                    color: '#3B1F0A',
+                    textShadow: '0px 1px 2px rgba(0,0,0,0.15)',
+                    margin: '0 10px',
+                  }}
+                >
+                  Dev &amp; Priti
+                </span>
+                <span style={{ color: '#C9A84C' }}>✦</span>
               </span>
             </div>
 

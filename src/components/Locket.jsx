@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
+import PhotoReveal from './PhotoReveal'
 
 const BABY_DATE = new Date('2027-02-01')
 const daysAway = Math.ceil((BABY_DATE - new Date()) / (1000 * 60 * 60 * 24))
@@ -19,6 +20,7 @@ export default function Locket() {
   const [isOpen, setIsOpen] = useState(false)
   const [showContent, setShowContent] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
+  const [showPhoto, setShowPhoto] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function Locket() {
     fireConfetti()
     setTimeout(() => setShowContent(true), 700)
     setTimeout(() => setShowMessage(true), 1600)
+    setTimeout(() => setShowPhoto(true), 2600)
   }
 
   return (
@@ -324,6 +327,13 @@ export default function Locket() {
           >
             With all our love — Dev &amp; Priti
           </p>
+        </div>
+      )}
+
+      {/* Photo reveal — fades in after the love note */}
+      {showPhoto && (
+        <div className="animate-fade-in-up" style={{ width: '100%' }}>
+          <PhotoReveal />
         </div>
       )}
     </div>

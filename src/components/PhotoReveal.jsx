@@ -205,7 +205,7 @@ export default function PhotoReveal() {
       </div>
 
       {/* Caption / hint below */}
-      {!flipped ? (
+      {!flipped && (
         <p
           className="font-playfair animate-fade-in"
           style={{
@@ -217,20 +217,6 @@ export default function PhotoReveal() {
           }}
         >
           tap to reveal the moment we found out 📸
-        </p>
-      ) : (
-        <p
-          className="font-caveat animate-fade-in-up"
-          style={{
-            color: '#5C3410',
-            fontSize: 26,
-            fontWeight: 600,
-            marginTop: 22,
-            textAlign: 'center',
-            lineHeight: 1.3,
-          }}
-        >
-          Feb 2027 — the best chapter yet ❤️
         </p>
       )}
     </div>

@@ -46,6 +46,10 @@ export default function LandingPage({ onDenied }) {
   }, [])
 
   const handleSignIn = async () => {
+    if (!auth || !googleProvider) {
+      setError('Sign-in is unavailable right now. Please try again later.')
+      return
+    }
     setLoading(true)
     setError('')
     try {

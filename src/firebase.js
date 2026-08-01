@@ -11,6 +11,12 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
-const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-export const googleProvider = new GoogleAuthProvider()
+// CI / local preview can run without Firebase credentials.
+// Without this guard, initializeApp throws and the whole React tree fails to mount.
+export const isFirebaseConfigured = Boolean(
+  firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId && firebaseConfig.appId
+)
+
+const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null
+export const auth = app ? getAuth(app) : null
+export const googleProvider = app ? new GoogleAuthProvider() : null

@@ -23,6 +23,11 @@ export default function App() {
 
   useEffect(() => {
     if (DEV_PREVIEW) return // skip Firebase auth listener in local preview mode
+    if (!auth) {
+      // No Firebase config (e.g. CI without secrets) — show the landing gate
+      setAuthState('unauthenticated')
+      return
+    }
     const unsub = onAuthStateChanged(auth, (user) => {
       if (!user) {
         setAuthState('unauthenticated')

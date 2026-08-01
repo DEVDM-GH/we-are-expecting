@@ -21,12 +21,6 @@ async function advancePage(page) {
 // ─── test suite ──────────────────────────────────────────────────────────────
 
 test.describe('Full announcement flow', () => {
-  test.beforeEach(async ({ page }) => {
-    // Default: start at storybook. Individual tests override URL if needed.
-    await page.goto(STORYBOOK_URL)
-    await expect(page.getByText('A Little Story')).toBeVisible({ timeout: 10000 })
-  })
-
   // ── 1. Landing page (without preview bypass) ──────────────────────────────
   test('landing page shows sign-in gate', async ({ page }) => {
     await page.goto('/')
@@ -36,6 +30,8 @@ test.describe('Full announcement flow', () => {
 
   // ── 2. Storybook ──────────────────────────────────────────────────────────
   test('storybook loads on page 1 with correct text', async ({ page }) => {
+    await page.goto(STORYBOOK_URL)
+    await expect(page.getByText('A Little Story')).toBeVisible({ timeout: 10000 })
     await expect(page.getByText('Once upon a time')).toBeVisible({ timeout: 8000 })
     // Verify page number footer
     await expect(page.getByText('— 1 —')).toBeVisible()
@@ -44,6 +40,9 @@ test.describe('Full announcement flow', () => {
   })
 
   test('can navigate through all 5 storybook pages', async ({ page }) => {
+    await page.goto(STORYBOOK_URL)
+    await expect(page.getByText('A Little Story')).toBeVisible({ timeout: 10000 })
+
     const pageTexts = [
       'Once upon a time',
       'two people found each other',

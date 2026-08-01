@@ -2,7 +2,9 @@ import { signOut } from 'firebase/auth'
 import { auth } from '../firebase'
 
 export default function AccessDenied({ email }) {
-  const handleSignOut = () => signOut(auth)
+  const handleSignOut = () => {
+    if (auth) signOut(auth)
+  }
 
   return (
     <div

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
 import PhotoReveal from './PhotoReveal'
 
-const BABY_DATE = new Date('2027-02-01')
+const BABY_DATE = new Date('2027-03-01')
 const daysAway = Math.ceil((BABY_DATE - new Date()) / (1000 * 60 * 60 * 24))
 
 // Locket dimensions
@@ -275,7 +275,7 @@ export default function Locket() {
                 className="font-playfair"
                 style={{ color: '#3B1F0A', fontSize: '1.2rem', fontWeight: 600 }}
               >
-                February 2027
+                March 2027
               </p>
             </FadeStep>
 

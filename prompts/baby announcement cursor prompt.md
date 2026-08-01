@@ -36,10 +36,10 @@ Create a single-page React website (Vite + Tailwind CSS) for a pregnancy announc
 - Inside the locket, with a soft light glow effect, reveal:
 
 > **“Dev & Priti are expecting! 🍼”**
-> **“Baby arrives in February 2027”**
+> **“Baby arrives in March 2027”**
 > 
 > *(Below this, show a live countdown in days:)*
-> **“That’s only [X] days away! 🎉”** *(calculate dynamically from Feb 1, 2027)*
+> **“That’s only [X] days away! 🎉”** *(calculate dynamically from Mar 1, 2027)*
 
 - Trigger a confetti burst animation on locket open (use `canvas-confetti` npm package)
 - Below the locket, fade in: *“We can’t wait for you to meet them. With all our love ❤️ — Dev & Priti”*
@@ -67,7 +67,7 @@ Create a single-page React website (Vite + Tailwind CSS) for a pregnancy announc
 - Countdown calculates dynamically:
 
 ```js
-Math.ceil((new Date('2027-02-01') - new Date()) / (1000 * 60 * 60 * 24))
+Math.ceil((new Date('2027-03-01') - new Date()) / (1000 * 60 * 60 * 24))
 ```
 
 -----
@@ -93,4 +93,4 @@ baby-announcement/
 
 -----
 
-*Built with love for Dev & Priti’s little one arriving February 2027 🌟*
+*Built with love for Dev & Priti’s little one arriving March 2027 🌟*

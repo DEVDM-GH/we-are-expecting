@@ -35,7 +35,7 @@ After the locket opens and the reveal content fades in (the “Dev & Priti are e
 - On tap, trigger a **smooth 3D CSS card-flip animation** (`rotateY 0deg → 180deg`)
 - The back of the card shows the actual photo (`/src/assets/couple.jpg`) inside the polaroid frame
 - Below the photo, handwriting-style font text fades in:
-  *“Feb 2027 — the best chapter yet ❤️”*
+  *“Mar 2027 — the best chapter yet ❤️”*
 - Trigger a second soft confetti burst — smaller and more intimate — rose gold and gold colors only:
   `#C9A84C`, `#E8B4B8`, `#ffffff`
 
@@ -74,4 +74,4 @@ Place the couple’s photo at:
 
 -----
 
-*For we-are-expecting.vercel.app — Dev & Priti’s Baby Announcement · Feb 2027 🌟*
+*For we-are-expecting.vercel.app — Dev & Priti’s Baby Announcement · Mar 2027 🌟*

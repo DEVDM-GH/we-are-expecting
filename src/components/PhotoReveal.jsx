@@ -197,7 +197,7 @@ export default function PhotoReveal() {
                 className="font-caveat"
                 style={{ color: '#5C3410', fontSize: 22, fontWeight: 600 }}
               >
-                Feb 2027 💛
+                Mar 2027 💛
               </span>
             </div>
           </div>

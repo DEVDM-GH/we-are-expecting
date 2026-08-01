@@ -3,8 +3,9 @@ dist
 .env
 .DS_Store
 
-# Internal planning notes
+# Internal planning notes (local only)
 WIP.md
+ENGINEERING_PLAN.md
 
 # Generated QR code assets
 public/qr-code.png

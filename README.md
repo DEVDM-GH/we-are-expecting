@@ -21,7 +21,7 @@ Built with **Vite + React + Tailwind CSS**, deployed on Vercel.
 - 📖 **Storybook** — 5-page narrative with CSS 3D page-flip animation and progress dots
 - 🔒 **Countdown Locket** — full-cover gold lid hinges open (`rotateX` + `backface-visibility`) with a staggered, sequential content reveal
 - 🎉 **Confetti** — celebratory burst on locket open + a softer rose-gold burst on the photo flip (`canvas-confetti`)
-- ⏳ **Live countdown** — dynamically calculates the days remaining until February 2027
+- ⏳ **Live countdown** — dynamically calculates the days remaining until March 2027
 - 📸 **Photo reveal** — frosted shimmer teaser that flips in 3D to the real photo, with a `Caveat` handwriting caption
 - 🍼 **Custom tab icon** — themed SVG favicon (gold heart locket) with an emoji fallback
 - 📱 **Fully responsive** — book, locket, and polaroid scale gracefully on mobile and desktop
@@ -114,4 +114,4 @@ npm run preview
 
 ---
 
-*Built with love for Dev & Priti's little one arriving February 2027 🌟*
+*Built with love for Dev & Priti's little one arriving March 2027 🌟*

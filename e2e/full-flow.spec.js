@@ -83,7 +83,7 @@ test.describe('Full announcement flow', () => {
     // Staggered reveal — wait for all key content
     await expect(page.getByText('Dev & Priti').first()).toBeVisible({ timeout: 8000 })
     await expect(page.getByText('are expecting!')).toBeVisible({ timeout: 8000 })
-    await expect(page.getByText('February 2027')).toBeVisible({ timeout: 8000 })
+    await expect(page.getByText('March 2027')).toBeVisible({ timeout: 8000 })
     await expect(page.getByText('days to go!')).toBeVisible({ timeout: 8000 })
     await expect(page.getByText("We can't wait for you to meet them")).toBeVisible({ timeout: 8000 })
   })
@@ -109,7 +109,7 @@ test.describe('Full announcement flow', () => {
     await expect(photo).toBeVisible({ timeout: 6000 })
 
     // Caption on the polaroid back
-    await expect(page.getByText('Feb 2027')).toBeVisible()
+    await expect(page.getByText('Mar 2027')).toBeVisible()
 
     // Hint text disappears after reveal
     await expect(page.getByText('tap to reveal')).not.toBeVisible()
